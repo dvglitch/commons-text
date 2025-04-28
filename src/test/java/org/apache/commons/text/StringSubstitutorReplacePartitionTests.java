@@ -45,4 +45,28 @@ public class StringSubstitutorReplacePartitionTests {
         assertEquals("Taco ${bell}", sub.replace("Taco ${bell}"));
     }
 
+    @Test
+    void testReplaceWithEscapeChar() {
+        Map<String, String> input = new HashMap<>();
+        input.put("cat", "stand");
+        StringSubstitutor sub = new StringSubstitutor(input);
+        assertEquals("Taco ${cat}", sub.replace("Taco $${cat}"));
+    }
+
+    @Test
+    void testReplaceWithDefaultVal() {
+        Map<String, String> input = new HashMap<>();
+        input.put("cat", "stand");
+        StringSubstitutor sub = new StringSubstitutor(input);
+        assertEquals("Taco stand goes to taco bell", sub.replace("Taco ${cat} goes to taco ${restaurant:-bell}"));
+    }
+
+    @Test
+    void testReplaceWithDefaultValFilled() {
+        Map<String, String> input = new HashMap<>();
+        input.put("cat", "stand");
+        input.put("restaurant", "emporium");
+        StringSubstitutor sub = new StringSubstitutor(input);
+        assertEquals("Taco stand goes to taco emporium", sub.replace("Taco ${cat} goes to taco ${restaurant:-bell}"));
+    }
 }
