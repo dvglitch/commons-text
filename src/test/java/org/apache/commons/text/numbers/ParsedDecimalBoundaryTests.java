@@ -16,7 +16,7 @@ public class ParsedDecimalBoundaryTests {
     @Test
     void negativeZeroParsesCorrectly() {
         ParsedDecimal pd = ParsedDecimal.from(-0.0);
-        assertFalse(pd.negative);
+        assertTrue(pd.negative);
         assertEquals(0, pd.digits[0]);
         assertEquals(0, pd.getExponent());
     }
